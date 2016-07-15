@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/taviti/caldav-go/icalendar"
 	"github.com/taviti/caldav-go/icalendar/components"
+	"github.com/taviti/caldav-go/icalendar/values"
 	"strings"
 )
 
@@ -23,6 +24,7 @@ func GetFilteredIcs(calendar string, shows []string) (string, error) {
 	for _, event := range cal.Events {
 		summary := event.Summary
 		if isInList(summary, shows) {
+			event.Location = values.NewLocation("-")
 			events = append(events, event)
 		}
 	}
