@@ -4,12 +4,16 @@ import (
 	"fmt"
 	"github.com/adrientoub/ical-tvshows/config"
 	"github.com/adrientoub/ical-tvshows/server"
+	"log"
 )
 
 func main() {
-	userFile := "config.txt"
+	userFile := "config.json"
 	config := config.LoadConfig(userFile)
-	port := config[0]
+	if config == nil {
+		log.Fatal("Config file is not correct.")
+	}
+	port := config["uri"].(string)
 	fmt.Println("Listening on " + port)
 	server.Listen(port)
 }

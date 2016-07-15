@@ -28,5 +28,6 @@ func printIcs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	GetShowList("adrientoub")
 	fmt.Fprintf(w, resp)
 }

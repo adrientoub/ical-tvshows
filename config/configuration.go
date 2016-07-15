@@ -1,18 +1,29 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"strings"
 )
 
-func LoadConfig(filename string) []string {
+var configuration map[string]interface{}
+
+func LoadConfig(filename string) map[string]interface{} {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Printf("Error %s reading %s", err, filename)
-		// TODO: Find a cleaner way to create an empty []string
-		return strings.Split("", "\n")
+		fmt.Printf("Error %s\n", err)
+		return nil
 	}
-	lines := strings.Split(string(content), "\n")
-	return lines
+	var parsed map[string]interface{}
+	err = json.Unmarshal(content, &parsed)
+	if err != nil {
+		return nil
+	}
+	configuration = parsed
+
+	return parsed
+}
+
+func GetConfig() map[string]interface{} {
+	return configuration
 }

@@ -14,13 +14,13 @@ const cacheFile = "cache.dat"
 func getIcsFromInternet() (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal("Impossible to read from source: ", err)
+		log.Print("Impossible to read from source: ", err)
 		return "", err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal("Impossible to read: ", err)
+		log.Print("Impossible to read: ", err)
 		return "", err
 	}
 	return string(body), nil
