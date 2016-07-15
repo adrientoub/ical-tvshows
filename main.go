@@ -8,8 +8,7 @@ import (
 )
 
 func main() {
-	userFile := "config.json"
-	config := config.LoadConfig(userFile)
+	config := config.GetConfig()
 	if config == nil {
 		log.Fatal("Config file is not correct.")
 	}

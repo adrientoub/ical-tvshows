@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 )
 
-var configuration map[string]interface{}
+var configuration map[string]interface{} = nil
 
-func LoadConfig(filename string) map[string]interface{} {
+func loadConfig(filename string) map[string]interface{} {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		fmt.Printf("Error %s\n", err)
@@ -19,11 +19,14 @@ func LoadConfig(filename string) map[string]interface{} {
 	if err != nil {
 		return nil
 	}
-	configuration = parsed
 
 	return parsed
 }
 
 func GetConfig() map[string]interface{} {
+	if configuration == nil {
+		userFile := "config.json"
+		configuration = loadConfig(userFile)
+	}
 	return configuration
 }

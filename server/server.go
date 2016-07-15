@@ -17,17 +17,19 @@ func Listen(uri string) {
 }
 
 func printIcs(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("path", r.URL.Path)
-	fmt.Println("scheme", r.URL.Scheme)
+	r.ParseForm()
+	var username string
 	for k, v := range r.Form {
-		fmt.Println("key:", k)
-		fmt.Println("val:", strings.Join(v, ""))
+		if k == "username" {
+			username = strings.Join(v, "")
+		}
 	}
 
 	resp, err := GetOriginalIcs()
 	if err != nil {
 		return
 	}
-	GetShowList("adrientoub")
+	shows := GetShowList(username)
+	GetFilteredIcs(resp, shows)
 	fmt.Fprintf(w, resp)
 }
