@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 const apiBase = "https://api.betaseries.com/"
@@ -102,11 +103,18 @@ func getShowListFromInternet(username string, apiKey string) ([]string, error) {
 
 func GetShowList(username string) []string {
 	apiKey := config.GetConfig()["api_key"].(string)
-	// TODO: add cache per username (limited time)
+
+	cacheKey := "showList-" + username
+	cached := GetFromCache(cacheKey)
+	if cached != nil {
+		return strings.Split(*cached, "\n")
+	}
 	shows, err := getShowListFromInternet(username, apiKey)
 	if err != nil {
 		log.Print("Impossible to get shows: ", err)
 		return []string{}
 	}
+	StoreInCache(cacheKey, strings.Join(shows, "\n"), 3600)
+
 	return shows
 }

@@ -20,6 +20,12 @@ contain the following informations:
 ```
 {
   "uri": "LISTEN_ADDRESS:PORT",
-  "api_key": "A Betaseries API_KEY"
+  "api_key": "A Betaseries API_KEY",
+  "cache": "redis",
+  "redis": {
+    "address": "localhost:6379",
+    "password": "",
+    "db": 0
+  }
 }
 ```
