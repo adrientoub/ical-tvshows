@@ -30,6 +30,9 @@ func printIcs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	shows := GetShowList(username)
-	GetFilteredIcs(resp, shows)
-	fmt.Fprintf(w, resp)
+	cal, err := GetFilteredIcs(resp, shows)
+	if err != nil {
+		return
+	}
+	fmt.Fprintf(w, cal)
 }
