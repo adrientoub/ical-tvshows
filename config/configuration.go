@@ -2,8 +2,8 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 )
 
 var configuration map[string]interface{} = nil
@@ -11,7 +11,7 @@ var configuration map[string]interface{} = nil
 func loadConfig(filename string) map[string]interface{} {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Printf("Error %s\n", err)
+		log.Printf("Error %s\n", err)
 		return nil
 	}
 	var parsed map[string]interface{}

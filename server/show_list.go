@@ -37,7 +37,7 @@ func getIdFromSearchBetaseries(body []byte) (int, error) {
 
 func getBetaseriesUserId(username string, apiKey string) (int, error) {
 	url := fmt.Sprintf("%s%slogin=%s&key=%s", apiBase, searchEndpoint, username, apiKey)
-	fmt.Println("GET " + url)
+	log.Println("GET " + url)
 	resp, err := http.Get(url)
 	if err != nil {
 		return 0, err
@@ -48,7 +48,7 @@ func getBetaseriesUserId(username string, apiKey string) (int, error) {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Print("Impossible to read: ", err)
+		log.Println("Impossible to read: ", err)
 		return 0, err
 	}
 	return getIdFromSearchBetaseries(body)
@@ -62,20 +62,20 @@ func getTitlesFromInfosBetaseries(body []byte) ([]string, error) {
 	}
 	member := parsed["member"].(map[string]interface{})
 	shows := member["shows"].([]interface{})
-	fmt.Println(len(shows))
+	log.Printf("Found %d shows.", len(shows))
 	titles := make([]string, len(shows))
 	for i, show := range shows {
 		title := show.(map[string]interface{})["title"].(string)
 		titles[i] = title
 	}
-	fmt.Println(titles)
+	log.Println(titles)
 
 	return titles, nil
 }
 
 func getShowListFromBetaseries(id int, apiKey string) ([]string, error) {
 	url := fmt.Sprintf("%s%s&id=%d&key=%s", apiBase, infosEndpoint, id, apiKey)
-	fmt.Println("GET " + url)
+	log.Println("GET " + url)
 	resp, err := http.Get(url)
 	if err != nil {
 		return []string{}, err
@@ -98,7 +98,7 @@ func getShowListFromInternet(username string, apiKey string) ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	fmt.Printf("Username: `%s' Id: %d\n", username, id)
+	log.Printf("Username: `%s' Id: %d\n", username, id)
 
 	return getShowListFromBetaseries(id, apiKey)
 }

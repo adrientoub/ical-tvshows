@@ -32,5 +32,5 @@ contain the following informations:
 }
 ```
 
-In the config, the "cache" key can be any of: "redis" or "none". If you choose
-to use Redis as a cache you must set the connection parameters.
+In the config, the "cache" key can be any of: "redis", "files" or "none".
+If you choose to use Redis as a cache you must set the connection parameters.

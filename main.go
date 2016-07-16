@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"log"
+
 	"github.com/adrientoub/ical-tvshows/config"
 	"github.com/adrientoub/ical-tvshows/server"
-	"log"
 )
 
 func main() {
@@ -13,6 +13,6 @@ func main() {
 		log.Fatal("Config file is not correct.")
 	}
 	port := config["uri"].(string)
-	fmt.Println("Listening on " + port)
+	log.Println("Listening on " + port)
 	server.Listen(port)
 }
