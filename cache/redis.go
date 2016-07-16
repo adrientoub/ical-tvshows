@@ -1,10 +1,11 @@
-package server
+package cache
 
 import (
-	"github.com/adrientoub/ical-tvshows/config"
-	"gopkg.in/redis.v4"
 	"log"
 	"time"
+
+	"github.com/adrientoub/ical-tvshows/config"
+	"gopkg.in/redis.v4"
 )
 
 var redis_client *redis.Client
@@ -38,8 +39,7 @@ func redisClient() *redis.Client {
 	return redis_client
 }
 
-func StoreInCache(key string, value string, ttl int) {
-	// TODO: add more caching systems
+func storeInRedis(key string, value string, ttl int) {
 	err := redisClient().Set(key, value, time.Duration(ttl)*time.Second).Err()
 	if err != nil {
 		log.Printf("Error (%v) storing `%s'", err, key)
@@ -48,8 +48,7 @@ func StoreInCache(key string, value string, ttl int) {
 	}
 }
 
-func GetFromCache(key string) *string {
-	// TODO: add more caching systems
+func getFromRedis(key string) *string {
 	val, err := redisClient().Get(key).Result()
 	if err != nil {
 		return nil

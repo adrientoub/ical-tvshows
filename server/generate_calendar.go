@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/adrientoub/ical-tvshows/cache"
 )
 
 const url = "https://calendar.google.com/calendar/ical/td5o0neuo68pb2ush6bun9inu8%40group.calendar.google.com/public/basic.ics"
@@ -25,11 +27,11 @@ func getIcsFromInternet() (string, error) {
 
 func GetOriginalIcs() (string, error) {
 	cacheKey := "seriesBaseICS"
-	ics := GetFromCache(cacheKey)
+	ics := cache.GetFromCache(cacheKey)
 	if ics == nil {
 		internetIcs, err := getIcsFromInternet()
 		if err == nil {
-			StoreInCache(cacheKey, internetIcs, 15*60)
+			cache.StoreInCache(cacheKey, internetIcs, 15*60)
 		}
 		return internetIcs, err
 	}

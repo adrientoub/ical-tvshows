@@ -1,10 +1,11 @@
 package server
 
 import (
+	"strings"
+
 	"github.com/taviti/caldav-go/icalendar"
 	"github.com/taviti/caldav-go/icalendar/components"
 	"github.com/taviti/caldav-go/icalendar/values"
-	"strings"
 )
 
 func isInList(summary string, shows []string) bool {

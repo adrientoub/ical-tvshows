@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/adrientoub/ical-tvshows/config"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/adrientoub/ical-tvshows/cache"
+	"github.com/adrientoub/ical-tvshows/config"
 )
 
 const apiBase = "https://api.betaseries.com/"
@@ -105,7 +107,7 @@ func GetShowList(username string) []string {
 	apiKey := config.GetConfig()["api_key"].(string)
 
 	cacheKey := "showList-" + username
-	cached := GetFromCache(cacheKey)
+	cached := cache.GetFromCache(cacheKey)
 	if cached != nil {
 		return strings.Split(*cached, "\n")
 	}
@@ -114,7 +116,7 @@ func GetShowList(username string) []string {
 		log.Print("Impossible to get shows: ", err)
 		return []string{}
 	}
-	StoreInCache(cacheKey, strings.Join(shows, "\n"), 3600)
+	cache.StoreInCache(cacheKey, strings.Join(shows, "\n"), 3600)
 
 	return shows
 }
