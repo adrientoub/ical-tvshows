@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/adrientoub/ical-tvshows/cache"
@@ -54,6 +55,13 @@ func getBetaseriesUserId(username string, apiKey string) (int, error) {
 	return getIdFromSearchBetaseries(body)
 }
 
+func ParseTitle(title string) string {
+	reg := regexp.MustCompile(`\(([^)]*)\)`)
+	res := reg.ReplaceAllString(title, "")
+
+	return strings.TrimSpace(res)
+}
+
 func getTitlesFromInfosBetaseries(body []byte) ([]string, error) {
 	var parsed map[string]interface{}
 	err := json.Unmarshal(body, &parsed)
@@ -66,7 +74,7 @@ func getTitlesFromInfosBetaseries(body []byte) ([]string, error) {
 	titles := make([]string, len(shows))
 	for i, show := range shows {
 		title := show.(map[string]interface{})["title"].(string)
-		titles[i] = title
+		titles[i] = ParseTitle(title)
 	}
 	log.Println(titles)
 
