@@ -3,7 +3,7 @@ package cache
 import (
 	"log"
 
-	"github.com/adrientoub/ical-tvshows/config"
+	"../config"
 )
 
 type Cache int

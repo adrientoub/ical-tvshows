@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/adrientoub/ical-tvshows/cache"
+	"../cache"
 )
 
 const url = "https://calendar.google.com/calendar/ical/td5o0neuo68pb2ush6bun9inu8%40group.calendar.google.com/public/basic.ics"

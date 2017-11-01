@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/adrientoub/ical-tvshows/config"
-	"github.com/adrientoub/ical-tvshows/server"
+	"./config"
+	"./server"
 )
 
 func main() {

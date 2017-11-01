@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"path/filepath"
 )
 
 var configuration map[string]interface{} = nil
@@ -11,7 +12,12 @@ var configuration map[string]interface{} = nil
 func loadConfig(filename string) map[string]interface{} {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		log.Printf("Error %s\n", err)
+		absPath, errFilePath := filepath.Abs(filename)
+		if errFilePath != nil {
+			log.Printf("Error getting absolute filepath for %s: %s\n", filename, errFilePath)
+			return nil
+		}
+		log.Printf("Error reading %s %s\n", absPath, err)
 		return nil
 	}
 	var parsed map[string]interface{}

@@ -38,6 +38,7 @@ func storeInFiles(key string, value string, ttl int) {
 	if err != nil {
 		log.Printf("Error (%v) creating ttl file for `%s' in cache.", err, key)
 	}
+	defer file.Close()
 	_, err = file.WriteString(fmt.Sprintf("%d", ttl))
 	if err != nil {
 		log.Printf("Error (%v) writing to ttl file.", err)
@@ -67,6 +68,7 @@ func getFileModTime(filename string) *time.Time {
 		log.Printf("Impossible to read file `%s' (%v).", filename, err)
 		return nil
 	}
+	defer file.Close()
 	fileInfo, err := file.Stat()
 	if err != nil {
 		log.Printf("Impossible to get file info from `%s' (%v).", filename, err)
@@ -91,6 +93,7 @@ func getFromFiles(key string) *string {
 		if duration.Seconds() > float64(*ttl) {
 			return nil
 		}
+		log.Printf("Got key: %s from filesystem. Expires in %f seconds.", key, duration.Seconds())
 	}
 	cacheFile, serr := ioutil.ReadFile(cacheKey)
 	if serr != nil {

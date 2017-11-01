@@ -10,8 +10,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/adrientoub/ical-tvshows/cache"
-	"github.com/adrientoub/ical-tvshows/config"
+	"../cache"
+	"../config"
 )
 
 const apiBase = "https://api.betaseries.com/"
@@ -26,12 +26,12 @@ func getIdFromSearchBetaseries(body []byte) (int, error) {
 	}
 	users := parsed["users"].([]interface{})
 	if len(users) <= 0 {
-		return 0, errors.New("No user found")
+		return 0, errors.New("no user found")
 	}
 	user := users[0].(map[string]interface{})
 	id, ok := user["id"].(float64)
 	if !ok {
-		return 0, errors.New("Unable to cast to float64")
+		return 0, errors.New("unable to cast to float64")
 	}
 	return int(id), nil
 }

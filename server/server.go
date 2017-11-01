@@ -25,7 +25,7 @@ func printIcs(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if username == "" {
-		fmt.Fprintf(w, "You must use a username, in the address use ?username=login")
+		fmt.Fprint(w, "You must use a username, in the address use ?username=login")
 		return
 	}
 

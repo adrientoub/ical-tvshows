@@ -1,0 +1,4 @@
+*.json
+ical-cache
+.idea
+.vs
