@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/adrientoub/ical-tvshows/config"
+
 	"gopkg.in/redis.v4"
 )
 

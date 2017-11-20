@@ -1,0 +1,7 @@
+[[constraint]]
+  name = "gopkg.in/redis.v4"
+  version = "4.2.4"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/taviti/caldav-go"

@@ -2,3 +2,6 @@
 ical-cache
 .idea
 .vs
+/vendor
+ical-tvshows
+Gopkg.lock

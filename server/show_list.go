@@ -10,8 +10,8 @@ import (
 	"regexp"
 	"strings"
 
-	"../cache"
-	"../config"
+	"github.com/adrientoub/ical-tvshows/cache"
+	"github.com/adrientoub/ical-tvshows/config"
 )
 
 const apiBase = "https://api.betaseries.com/"
