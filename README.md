@@ -37,10 +37,10 @@ If you choose to use Redis as a cache you must set the connection parameters.
 
 ## Contribution
 
-This project use [dep](https://github.com/golang/dep) to manage its dependencies.
+This project uses [dep](https://github.com/golang/dep) to manage its dependencies.
 So if you want to contribute, do the following:
 - Install go in its latest version (1.9.2)
-- Install dep in its latest verion (0.3.2)
-- git clone the project in your `$GOPATH/src/github.com/adrientoub/`
+- Install dep in its latest version (0.3.2)
+- `git clone` the project in your `$GOPATH/src/github.com/adrientoub/`
 - execute `dep ensure` at the project root in your favorite terminal
 - you should now be able to `go build` as you want
